@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getPayments, createPayment, updatePayment, deletePayment } = require('../controllers/payment.controller');
+const { getPayments, createPayment, updatePayment, deletePayment, getReturnCommissionReport } = require('../controllers/payment.controller');
 const { protect, authorize } = require('../middleware/auth.middleware');
 
 router.use(protect);
+
+router.get('/return-commission', getReturnCommissionReport);
 
 router.route('/')
   .get(getPayments)

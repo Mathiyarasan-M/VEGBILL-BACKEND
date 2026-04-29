@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getVendors, createVendor, updateVendor, deleteVendor } = require('../controllers/vendor.controller');
+const { getVendors, createVendor, updateVendor, deleteVendor, getVendorLedger } = require('../controllers/vendor.controller');
 const { protect, authorize } = require('../middleware/auth.middleware');
 
 // router.use(protect);
+
+router.get('/ledger', getVendorLedger);
 
 router.route('/')
   .get(getVendors)

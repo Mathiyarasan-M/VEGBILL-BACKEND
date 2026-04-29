@@ -3,21 +3,26 @@ const { getNextSequence } = require('../utils/sequenceGenerator');
 
 const PaymentSchema = new mongoose.Schema({
   receiptNo: { type: String, unique: true },
-  partyId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  partyId: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: 'partyType' },
   partyType: { type: String, enum: ['Farmer', 'Vendor'], required: true },
   amount: { type: Number, required: true },
-  type: { type: String, enum: ['IN', 'OUT'], required: true }, // IN for Receipts, OUT for Payments
+  type: { type: String, enum: ['IN', 'OUT'], required: true }, 
   paymentMethod: { type: String, enum: ['Cash', 'Bank', 'UPI'], default: 'Cash' },
   date: { type: Date, default: Date.now },
   note: { type: String },
-  billId: { type: mongoose.Schema.Types.ObjectId }, // Link to Sale or Purchase
+  billId: { type: mongoose.Schema.Types.ObjectId }, 
   billType: { type: String, enum: ['Sale', 'Purchase'] },
-  billInfo: { type: mongoose.Schema.Types.Mixed }, // Store snapshot for PDF/Voucher
-  referenceId: { type: mongoose.Schema.Types.ObjectId }, // Optional manual reference
-  isAdvance: { type: Boolean, default: false }
+  billInfo: { type: mongoose.Schema.Types.Mixed }, 
+  referenceId: { type: mongoose.Schema.Types.ObjectId }, 
+  isAdvance: { type: Boolean, default: false },
+  entryType: { 
+    type: String, 
+    enum: ['Bill', 'Return Commission', 'Voucher', 'Advance'], 
+    default: 'Bill' 
+  }
 }, { timestamps: true });
 
-PaymentSchema.pre('save', async function(next) {
+PaymentSchema.pre('save', async function() {
   if (this.isNew) {
     const isIN = this.type === 'IN';
     const prefix = isIN ? 'RCV' : 'PAY';
