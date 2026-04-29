@@ -1,0 +1,1102 @@
+Village_Id
+Village_Name
+active
+1	kJiu	1
+2	
+jp.mizf;fiugl;b
+1
+3	
+%zhz;bgl;b
+1
+4	
+ngUkhs; Nfhtpy;gl;b
+1
+5	
+ma;adNjtd;gl;b
+1
+6	
+jp.ngUkhs;gl;b
+1
+7	itif miz	1
+8	
+nfz;lkehaf;fd;gl;b
+0
+9	
+nts;saNjtd;gl;b
+1
+10	uhrjhdp	0
+11	
+Nfhtpy;gl;b
+1
+12	
+rf;fk;gl;b
+1
+13	
+ey;yfUg;gNjtd;gl;b
+1
+14	mDg;ggl;b	1
+15	
+rp.crpyk;gl;b
+1
+16	
+Kj;jdk;gl;b
+1
+17	
+Mthuk;gl;b
+1
+18	
+fPuNghj;jd;gl;b
+1
+19	
+jp.Nrlgl;b
+1
+20	
+jp.Rg;GyhGuk;
+1
+21	JYf;fgl;b	1
+22	
+nfhg;gak;gl;b
+1
+23	jp.GJ}h;	1
+24	
+gpuhJfhud;gl;b
+1
+25	Fs;sGuk;	1
+26	
+nrl;bagl;b
+1
+27	
+Ntftjp Mrpukk;
+1
+28	
+nfhj;jgl;b
+1
+29	Nuhrzgl;b	1
+30	
+jh;kj;Jg;gl;b
+1
+31	
+Kj;Jrq;fpypgl;b
+1
+32	
+njg;gk;gl;b
+1
+33	NkYH	0
+34	%zhH	1
+35	Mz;bgl;b	1
+36	
+Njtjhzg;gl;b
+0
+37	
+crpyk;gl;b
+1
+38	jpUr;rp	1
+39	NrhdhGuk;	1
+40	fhiuf;Fb	1
+41	nghpaFsk;	1
+42	tpUJefH	1
+43	rptfq;if	1
+44	
+jp.rpYf;FthHgl;b
+1
+45	
+ful;Lg;gl;b
+1
+46	
+Nf.Nf.Guk;
+1
+47	
+mug;gbj;Njtd;gl;b
+1
+48	
+nghk;kpehaf;fd;gl;b
+1
+49	
+rpj;ijafTz;ld;gl;b
+1
+50	
+nrhf;fD}h;
+1
+51	
+fhkhl;rpj;Njtd;gl;b
+1
+52	
+fd;dpakq;fyk;
+1
+53	
+fd;dpagps;isgl;b
+1
+54	
+fUg;gj;Njtd;gl;b
+1
+55	FUk;ggl;b	1
+56	
+Nkf;fpohHgl;b
+1
+57	
+ehr;rpahHGuk;
+1
+58	
+gpr;rk;gl;b
+1
+59	Njdp	1
+60	njd;godp	1
+61	
+njg;gj;Jg;gl;b
+1
+62	
+n[akq;fyk;
+1
+63	
+b.tp.MH.Guk;
+1
+64	nea;Ntyp	1
+65	Fd;wf;Fb	1
+66	
+fjpHeurpq;fGuk;
+1
+67	
+flkiyf;Fz;L
+1
+68	fk;gk;	1
+69	
+Fk;gNfhzk;
+1
+70	FKsp	1
+71	gz;Ul;b	1
+72	
+ghh;j;jpgD}h;
+1
+73	jhk;guk;	1
+74	
+jpUg;gj;J}h;
+1
+75	
+Gspaq;Fsk;
+1
+76	
+GJf;Nfhl;il
+1
+77	nguk;gYhH	1
+78	
+mwe;jhq;fp
+1
+79	
+jpUney;Ntyp
+1
+80	
+jpz;Lf;fy;
+1
+81	
+jpUkq;fyk;
+1
+82	
+uhkfpU\;zhGuk;
+1
+83	kwtgl;b	1
+84	
+mUg;Gf;Nfhl;il
+1
+85	
+Nfhj;jY}j;J
+1
+86	Nfhk;ig	1
+87	Nfhl;lak;	1
+88	Nghb	1
+89	NgiuA+H	1
+90	
+J}f;Fghyk;
+1
+91	njhLGoh	1
+92	
+NjtNfhl;il
+1
+93	NkY}h;	1
+94	
+nrhf;fypq;fGuk;
+1
+95	Nrlgl;b	1
+96	rpd;dkDhH	1
+97	
+tz;bnghpahH
+1
+98	
+Njtjhdg;gl;b
+1
+99	mk;khgl;b	1
+100	
+Njh.tpyf;F
+1
+101	
+G+r;rpgl;b
+1
+102	Nfush	1
+103	
+khahz;bgl;b
+1
+104	
+Nrthepiyak;
+1
+105	
+,.GJg;gl;b
+1
+106	
+rpYf;FthHgl;b
+0
+107	
+ghyNfhk;ig
+0
+108	
+nfhz;lkehaf;fd;gl;b
+1
+109	
+tujuh[Guk;
+1
+110	vOkiy	1
+111	
+nkhl;lD}j;J
+1
+112	,ilagl;b	1
+113	
+nfhl;Nlhilgl;b
+1
+114	tLfgl;b	1
+115	
+jpk;kurehaf;fDhH
+1
+116	
+Nehl;lk;gl;b
+1
+117	
+Fd;Dj;Jg;gl;b
+1
+118	NguhT+uzp	1
+119	
+Kjyf;fk;gl;b
+1
+120	fhaq;Fsk;	1
+121	f.tpyf;F	1
+122	nrd;id	1
+123	rptfhrp	1
+124	
+Kj;Jghz;bgl;b
+1
+125	tz;bA+H	1
+126	GJg;gl;b	1
+127	
+ky;iyahGuk;
+1
+128	
+MH.Nf.Guk;
+0
+129	Gspaq;Fb	1
+130	
+rPiyak;gl;b
+1
+131	khjiu	1
+132	
+Fhpak;khs;Guk;
+1
+133	jQ;rhT+H	1
+134	gukf;Fb	1
+135	
+uhkypq;fGuk;
+1
+136	
+uh[g;gd;Nfhl;il
+1
+137	
+rpj;jhHgl;b
+1
+138	thbg;gl;b	1
+139	
+tj;jyf;Fz;L
+1
+140	Xilg;gl;b	1
+141	
+tpy;yhdpahGuk;
+1
+142	kUjk;gl;b	1
+143	
+Nghbjhrd;gl;b
+1
+144	
+nfq;FthHgl;b
+1
+145	
+Nfhak;Gj;J}h;
+1
+146	
+fUq;fhyf;Fb
+1
+147	
+ma;azhHGuk;
+1
+148	
+Kj;JNjtd;gl;b
+1
+149	
+uhkehaf;fd;gl;b
+1
+150	Gj;J}h;	1
+151	
+yl;rkpGuk;
+1
+152	
+rq;fu%Hj;jpgl;b
+1
+153	
+cg;ghHgl;b
+1
+154	
+rptypq;fk;gl;b
+1
+155	v.gl;b	1
+156	ngUq;Fb	1
+157	thrpefH	1
+158	
+tpuhypgl;b
+1
+159	tpUtPL	1
+160	
+nj.%zhz;bgl;b
+1
+161	
+jp.tp nuq;fehjGuk;
+1
+162	
+fhkhl;rpGuk;
+1
+163	NjtH rpiy	1
+164	
+rf;fiug;gl;b
+1
+165	jhjD}h;	1
+166	
+kWfhy;gl;b
+1
+167	
+uh[Nfhghyd;gl;b
+1
+168	fz;lkD}h;	1
+169	
+gp.v];.Guk;
+1
+170	
+jiyahHNfhl;lk;
+1
+171	fl;lg;giz	1
+172	
+kQ;rpehaf;fd;gl;b
+1
+173	
+NkykQ;rpehaf;fd;gl;b
+1
+174	
+Njhg;Gg;gl;b
+1
+175	
+v];.v];.Guk;
+1
+176	
+nuq;fg;gehaf;fd;gl;b
+1
+177	
+NrHtuhk;gl;b
+1
+178	
+Vj;jNfhtpy;
+1
+179	tlkJiu	1
+180	mofhGhp	1
+181	Mrhhpgl;b	1
+182	
+Gs;spkhd;Nfhk;ig
+1
+183	
+eLf;Nfhl;il
+1
+184	
+khiyg;gl;b
+1
+185	
+ef;fyg;gl;b
+1
+186	
+Nrh;e;jkuk;
+1
+187	
+uh[f;fhs;gl;b
+1
+188	
+nghs;shr;rp
+1
+189	
+kwtkq;fyk;
+1
+190	kzg;ghiw	1
+191	khpf;Fz;L	1
+192	
+ey;yptPud;gl;b
+1
+193	
+Xf;fiug;gl;b
+1
+194	Ruz;il	1
+195	
+nrf;fhZ}uzp
+1
+196	
+filaey;YhH
+1
+197	
+nuq;frKj;jpuk;
+1
+198	
+FQ;rhk;gl;b
+1
+199	ghgehrk;	1
+200	
+nfhoQ;rpg;gl;b
+1
+201	
+kzpaf;fhud;gl;b
+1
+202	Myq;Fsk;	1
+203	
+thbNfhtpy;gl;b
+1
+204	
+Nfhapy;Guk;
+0
+205	
+fUj;jkiyg;gl;b
+1
+206	godp	1
+207	
+Xl;ld;rj;jpuk;
+1
+208	
+nrq;Nfhl;il
+1
+209	fUkhj;JhH	1
+210	
+= tpy;ypGj;JhH
+1
+211	ghyej;jk;	1
+212	Fd;D}h;	1
+213	
+cj;jkghisak;
+1
+214	
+kapyhLk;ghiw
+1
+215	
+njhl;lg;gehaf;fDhH
+1
+216	jpUg;G+H	1
+217	
+g+jpg;Guk;
+1
+218	,uh[jhdp	1
+219	=uq;fGuk;	1
+220	
+gp.rp.gl;b
+1
+221	
+uhrghisak;
+1
+222	
+nghd;dkuhtjp
+1
+223	
+Re;jh;uh[hGuk;
+1
+224	
+nrq;fy;gl;L
+1
+225	
+Kj;Jnuq;fGuk;
+1
+226	
+gz;izg;gl;b
+1
+227	
+Fg;gdk;gl;b
+1
+228	
+tpUj;jhr;ryk;
+1
+229	jpl;lf;Fb	1
+230	
+Ntlr;re;J}h;
+1
+231	
+Nrj;jpahHNjhg;G
+1
+232	
+NtYr;rhkpGuk;
+1
+233	nfhLthA+H	1
+234	
+rk;GypGj;J}h;
+0
+235	
+mDke;jd;gl;b
+1
+236	ghyf;fhL	1
+237	ghy	1
+238	
+Gy;yf;fhgl;b
+1
+239	
+ghyrKj;jpuk;
+1
+240	ej;jk;	1
+241	
+rq;fud;Nfhtpy;
+1
+242	
+uhrg;gd;Nfhl;il
+0
+243	
+Nfhghy;gl;b
+1
+244	
+rpe;Jtk;gl;b
+1
+245	uh[Nfgh	0
+246	uhjh	1
+247	
+NfhapyhGuk;
+1
+248	
+rpy;thh;gl;b
+1
+249	tUrehL	1
+250	
+Nrh;thuk;gl;b
+1
+251	
+rpq;fk;gl;b
+1
+252	
+nrd;dkehaf;fd;gl;b
+1
+253	
+godpNjtd;gl;b
+1
+254	
+uhag;gd;gl;b
+1
+255	[y;ypgl;b	1
+256	
+nuq;fehjGuk;
+1
+257	
+ngj;Jehaf;fd;gl;b
+1
+258	gp.GJ}h;	1
+259	
+rf;fk;khs;gl;b
+1
+260	gd;Ul;b	1
+261	thyhe;Jh;	1
+262	
+jpUkyhGuk;
+1
+263	
+fUNty;ehaf;fd;gl;b
+1
+264	Nryk;	1
+265	
+re;jpuhGuk;
+1
+266	
+nrhf;fj;Njtd;gl;b
+1
+267	
+Nrhote;jhd;
+1
+268	
+Nky;kq;fyk;
+1
+269	khdhkJiu	1
+270	
+Fz;lyg;gl;b
+1
+271	
+kPdhl;rpGuk;
+1
+272	
+F[pypak;ghiw
+1
+273	
+my;ypefuk;
+1
+274	eLg;gl;b	1
+275	
+v.GJg;gl;b
+1
+276	
+vl;lg;guhrGuk;
+1
+277	fUh;	1
+278	guit	1
+279	Njthuk;	1
+280	nfhrtgl;b	1
+281	
+ej;jg;gl;b
+1
+282	rhj;J}h;	1
+283	
+nghk;kzk;gl;b
+1
+284	ghk;gdhh;	1
+285	
+ntq;flhryGuk;
+0
+286	njhz;b	1
+287	
+vUkiyehaf;fd;gl;b
+1
+288	
+[k;GypGj;J}h;
+1
+289	,Lf;fp	1
+290	
+ghyf;Nfhk;ig
+1
+291	
+uhrjhdpf;Nfhl;il
+1
+292	
+vk;.v];.Guk;
+1
+293	
+,uhkehjGuk;
+1
+294	
+nuq;fuhk;gl;b
+1
+295	Fkzd;njhO	1
+296	
+fUf;fl;lhd;gl;b
+1
+297	
+Nfhyf;fhgl;b
+1
+298	
+gp.tp.Guk;
+1
+299	
+Jk;kf;Fz;L
+1
+300	
+md;Gf;Nfhl;il
+1
+301	
+rkj;JtGuk;
+1
+302	vuir	1
+303	fNzrGuk;	1
+304	f];gh	1
+305	fKjp	1
+306	
+ey;yKbgl;b
+1
+307	
+khku;j;Jg;gl;b
+1
+308	
+Riuf;fha;gl;b
+1
+309	
+Ky;iyak;gl;b
+1
+310	
+nrf;fhgl;b
+1
+311	
+ge;Jthh;gl;b
+1
+312	nrhuz;il	1
+313	
+kPdhq;fy;gl;b
+1
+314	
+epk;ky;Fsk;
+1
+315	jhuhGuk;	1
+316	
+Ngr;rpak;kd;Nfhtpy;gl;b
+1
+317	
+ngUkhs;gl;b
+0
+318	%yf;fil	1
+319	
+fz;zpak;gl;b
+1
+320	Vh;thb	1
+321	
+fjpug;gd;gl;b
+1
+322	ej;jk;	0
+323	
+nuq;fuhk;gl;b
+0
+324	G+tk;gl;b	1
+325	
+cLkiyNgl;il
+1
+326	
+Ntyg;gh; Nfhtpy;
+1
+327	khyg;gl;b	1
+328	
+Fwpak;khs;Guk;
+1
+329	
+mk;kr;rpahGuk;
+1
+330	
+ghg;gk;khs;Guk;
+1
+331	Mhpagl;b	1
+332	
+kPdhl;rpGuk;
+0
+333	mhpaY}H	1
+334	
+my;ypFz;lk;
+1
+335	
+gl;btPud;gl;b
+1
+336	
+jpUg;guq;Fd;wk;
+1
+337	
+Mh;.Nf.gl;b
+0
+338	Mz;bgl;b	1
+339	
+Mz;bg;gl;b
+0
+340	vz;lg;Gsp	1
+341	NkYh;	0
+342	
+milf;fk;gl;b
+1
+343	
+rpq;fhuf;Nfhl;il
+1
+344	tiyagl;b	1
+345	
+rptuhk;gl;b
+1
+346	
+uhkehjGuk;
+1
+347	Mk;G+h;	1
+348	
+thiff;Fsk;
+1
+349	
+epyf;Nfhl;il
+1
+350	%g;ggl;b	1
+351	
+fy;Yg;gl;b
+1
+352	
+uhNre;jpuGuk;
+1
+353	v.GJ}h;	1
+354	v];.fjph;	1
+355	
+,uhaNtY}h;
+1
+356	rpug;ghiw	1
+357	
+Fg;gpehaf;fd;gl;b
+1
+358	
+kiyahz;behaf;fd;gl;b
+1
+359	
+ke;jpr;Rid
+1
+360	ghY}j;J	1
+361	
+Mj;Jg;gl;b
+1
+362	
+Kj;jhyk;ghiw
+1
+363	
+thioA+j;Jg;gl;b
+1
+364	
+mk;ghrKj;jpuk;
+1
+365	
+NtyhAjGuk;
+1
+366	ehPA+j;J	1
+367	
+fd;dpkhh;Nfhtpy;gl;b
+1
+368	
+Nfhl;lhh;gl;b
+1
+369	
+nfhilf;fhdy;
+1
+370	
+Nfhl;ilg;gl;b
+1
+371	
+rhkpahh;%g;gDh;
+1
+372	%yD}h;	1
+373	
+,uh[jhdpf;Nfhl;il
+1
+374	
+fUg;G%g;gd;gl;b
+1
+375	
+jpUkhzpf;fk;
+1
+376	
+Nf.Nf.GspA+h;
+1
+377	
+uhN[e;jpuefh;
+1
+378	
+Fg;ghk;gl;b
+1
+379	
+Kj;Jf;fpU\;zhGuk;
+1
+380	
+nfhYQ;rpg;gl;b
+1
+381	
+nrq;Foj;Jg;gl;b
+1
+382	
+fhpry;gl;b
+1
+383	gwit	1
+384	
+nghd;dk;khs;gl;b
+1
+385	
+fhkuh[h; efh;
+0
+386	
+nghk;ikafTz;ld;gl;b
+0
+387	
+VOtdk;gl;b
+1
+388	
+tj;jpuhapUg;G
+1
+389	
+Njf;fk;gl;b
+1
+390	
+ghyhh;gl;b
+1
+391	
+ehFyFTz;ld;gl;b
+1
+392	
+Nfhtpe;jefuk;
+1
+393	
+tPurpd;dk;khs;Guk;
+1
+394	
+fhkf;fhs;gl;b
+1
+395	gd;dpahd;	1
+396	
+tlf;fk;gl;b
+1
+397	
+tlf;fk;gl;b
+0
+398	
+Nghj;jk;gl;b
+1
+399	
+Nkl;Lg;gl;b
+1
+400	
+vy;iyg;gl;b
+1
+401	jhjg;gl;b	1
+402	
+tpf;fpukq;fyk;
+1
+403	
+rilahz;bgl;b
+1
+404	
+jh;kypq;fGuk;
+1
+405	jpz;btdk;	1
+406	
+G+rhhpgl;b
+1
+407	
+jq;fkhs;Guk;
+1
+408	
+ngUkhs;Guk;
+1
+409	
+cg;Gf;Nfhl;il
+1
+410	
+nghk;ikafTd;ld; gl;b
+1
+411	
+Jk;kyg;gl;b
+1
+412	
+m.ngUkhs;gl;b
+1
+413	Me;jpuh	1
+414	kd;D}j;J	1
+415	
+ePuhh;gl;b
+1
+416	
+uhkr;re;jpuhGuk;
+1
+417	
+GJg;Ngl;il
+1
+418	
+GJg;Ngl;il
+1
+419	fz;zhgl;b	1
+420	
+Mj;jq;fiug;gl;b
+1
+421	
+nt.eh.gl;b
+1
+422	
+rhtbg;gl;b
+1
+423	fUg;gDh;	1
+424	ehfk;gl;b	1
+425	
+nrk;Nkl;Lg;gl;b
+1
+426	
+fhisahh;Nfhtpy;
+1
+427	cg;Gj;Jiw	1
+428	
+uhkr;re;jpuhGuk;
+1
+429	gs;sgl;b	1
+430	
+nfhg;bgl;b
+1
+1430	
+tz;zhj;jpghiw
+1
+1431	
+cr;rg;gll;b
+1
+1432	
+jz;zPHge;jy;
+1
+1433	uhaNtYhH	1
+1434	
+Nfhk;iggl;b
+0
+1435	
+tp.ngUkhs;gl;b
+1
+1436	
+nts;isak;khs;Guk;
+1
+1437	
+mofh;ehaf;fd;gl;b
+1
+1438	Nkyg;gl;b	1
+1439	
+jhakq;fyk;
+1
+1440	
+vk;.v];.Guk;
+1
+1441	mz;zhefh;	1
+1442	xR+h;	1
+1443	kQ;rshW	1
+1444	rj;ahefh;	1
+1445	rj;ahefh;	1
+1446	
+gps;isKfk;gl;b
+1
+1447	
+ej;jk;gl;b
+1
+2447	ehfyhGuk;	1
+2448	
+nghpag;gehaf;fd;gl;b
+1
+2449	
+eilNahl;il
+1
+2450	
+ntz;behaf;fd;gl;b
+1
+2451	
+tp.ngUkhs;gl;b
+1
+2452	
+rpq;fk;Gzhp
+1
+2453	xj;jtPL	1
+2454	
+ngUkhs;gl;b
+1
+2455	
+fl;lf;fUg;gd;gl;b
+1
+2456	
+ntwpag;gehaf;fd;gl;b
+1
+2457	
+tPh;ehaf;fd;gl;b
+1
+2458	mbkhyp	1
+2459	
+fd;dpkhh;Guk;
+1
+2460	
+jhkiuf;Fsk;
+1
+2461	
+vUkhh;gl;b
+1
+2462	ney;Y}h;	1
+2463	
+tpshj;jpFsk;
+1
+2464	fPog;gl;b	1
+2465	
+ntq;fl;uhkGuk;
+1
