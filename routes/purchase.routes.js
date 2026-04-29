@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getPurchases, createPurchase, updatePurchase, deletePurchase } = require('../controllers/purchase.controller');
+const { getPurchases, createPurchase, updatePurchase, deletePurchase, getPurchaseReport } = require('../controllers/purchase.controller');
 const { protect, authorize } = require('../middleware/auth.middleware');
 
 // router.use(protect);
+
+router.get('/generate-report', getPurchaseReport);
 
 router.route('/')
   .get(getPurchases)
