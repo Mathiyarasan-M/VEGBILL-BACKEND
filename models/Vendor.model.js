@@ -10,7 +10,8 @@ const VendorSchema = new mongoose.Schema({
   address: {type:mongoose.Schema.Types.ObjectId, ref: 'Village', required: true},
   addressTamil: {type:mongoose.Schema.Types.ObjectId, ref: 'Village', required: true},
   credit: { type: Number, default: 0 },
-  debit: { type: Number, default: 0 }
+  debit: { type: Number, default: 0 },
+  oldBalance: { type: Number, default: 0 }
 }, { timestamps: true });
 
 VendorSchema.pre('save', async function (next) {

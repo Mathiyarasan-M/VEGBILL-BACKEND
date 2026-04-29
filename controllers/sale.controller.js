@@ -81,7 +81,8 @@ exports.createSale = async (req, res) => {
       ...req.body,
       items: processedItems,
       totalAmount: grandTotal,      // Final amount vendor pays
-      totalCoolie: totalCoolie      // Important: Save total coolie separately
+      totalCoolie: totalCoolie,      // Important: Save total coolie separately
+      paymentStatus: 'Pending'      // Force Pending status for all sales
     };
 
     const sale = await Sale.create(saleData);

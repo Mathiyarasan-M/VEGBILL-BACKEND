@@ -10,6 +10,8 @@ const FarmerSchema = new mongoose.Schema({
     addressTamil: {type:mongoose.Schema.Types.ObjectId, ref: 'Village', required: true},
   credit: { type: Number, default: 0 },
   debit: { type: Number, default: 0 },
+  oldBalance: { type: Number, default: 0 },
+  advanceAmount: { type: Number, default: 0 },
   isActive: { type: Boolean, default: true },
   isSelf: { type: Boolean, default: false }
 }, { timestamps: true });

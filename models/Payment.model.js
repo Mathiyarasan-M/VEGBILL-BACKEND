@@ -13,7 +13,8 @@ const PaymentSchema = new mongoose.Schema({
   billId: { type: mongoose.Schema.Types.ObjectId }, // Link to Sale or Purchase
   billType: { type: String, enum: ['Sale', 'Purchase'] },
   billInfo: { type: mongoose.Schema.Types.Mixed }, // Store snapshot for PDF/Voucher
-  referenceId: { type: mongoose.Schema.Types.ObjectId } // Optional manual reference
+  referenceId: { type: mongoose.Schema.Types.ObjectId }, // Optional manual reference
+  isAdvance: { type: Boolean, default: false }
 }, { timestamps: true });
 
 PaymentSchema.pre('save', async function(next) {

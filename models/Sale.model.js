@@ -22,6 +22,8 @@ const SaleSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   paymentMethod: { type: String, enum: ['Cash', 'Credit', 'Bank'], default: 'Cash' },
   paymentStatus: { type: String, enum: ['Paid', 'Pending'], default: 'Paid' },
+  oldBalanceAtBill: { type: Number, default: 0 },
+  coolieAtBill: { type: Number, default: 0 },
   hasCommission: { type: Boolean, default: false }
 }, { timestamps: true });
 
