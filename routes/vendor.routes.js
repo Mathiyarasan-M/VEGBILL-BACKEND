@@ -6,8 +6,6 @@ const { protect, authorize } = require('../middleware/auth.middleware');
 // router.use(protect);
 
 router.get('/ledger', getVendorLedger);
-router.get('/long-pending', getBuyerLongPending);
-router.get('/excess-return', getBuyerExcessReturn);
 
 router.route('/')
   .get(getVendors)
