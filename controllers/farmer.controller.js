@@ -139,3 +139,132 @@ exports.getFarmerLedger = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getFarmerVegAbstract = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    if (!startDate || !endDate) return res.status(400).json({ message: 'Date range is required' });
+
+    const start = new Date(startDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const Purchase = require('../models/Purchase.model');
+    
+    const abstract = await Purchase.aggregate([
+      { $match: { date: { $gte: start, $lte: end } } },
+      {
+        $group: {
+          _id: '$farmerId',
+          totalAmount: { $sum: '$totalAmount' }
+        }
+      },
+      {
+        $lookup: {
+          from: 'farmers',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'farmer'
+        }
+      },
+      { $unwind: '$farmer' },
+      {
+        $lookup: {
+          from: 'villages',
+          localField: 'farmer.address',
+          foreignField: '_id',
+          as: 'village'
+        }
+      },
+      { $unwind: { path: '$village', preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: 'villages',
+          localField: 'farmer.addressTamil',
+          foreignField: '_id',
+          as: 'villageTamil'
+        }
+      },
+      { $unwind: { path: '$villageTamil', preserveNullAndEmptyArrays: true } },
+      {
+        $project: {
+          farmerName: '$farmer.name',
+          farmerNameTamil: '$farmer.nameTamil',
+          villageName: '$village.nameEn',
+          villageNameTamil: '$villageTamil.nameTa',
+          totalAmount: 1
+        }
+      },
+      { $sort: { totalAmount: -1 } }
+    ]);
+
+    res.json(abstract);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getFarmerVegDetail = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    if (!startDate || !endDate) return res.status(400).json({ message: 'Date range is required' });
+
+    const start = new Date(startDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const Sale = require('../models/Sale.model');
+    const Farmer = require('../models/Farmer.model');
+    
+    // We get all sales that have a farmerId and fall within the range
+    const sales = await Sale.find({ 
+      farmerId: { $exists: true, $ne: null },
+      date: { $gte: start, $lte: end }
+    })
+    .populate('farmerId vendorId')
+    .populate({
+      path: 'items.vegetableId',
+      select: 'name nameTamil'
+    })
+    .populate({
+      path: 'farmerId',
+      populate: { path: 'address addressTamil' }
+    })
+    .populate({
+      path: 'vendorId',
+      populate: { path: 'address addressTamil' }
+    })
+    .sort({ farmerId: 1, date: 1 });
+
+    // Group by farmer
+    const grouped = sales.reduce((acc, sale) => {
+      const fId = sale.farmerId._id.toString();
+      if (!acc[fId]) {
+        acc[fId] = {
+          farmer: sale.farmerId,
+          sales: []
+        };
+      }
+      
+      sale.items.forEach(item => {
+        acc[fId].sales.push({
+          date: sale.date,
+          vegetable: item.vegetableId,
+          count: item.count,
+          weight: item.quantity,
+          rate: item.rate,
+          amount: item.totalAmount,
+          buyer: sale.vendorId
+        });
+      });
+      
+      return acc;
+    }, {});
+
+    res.json(Object.values(grouped));
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

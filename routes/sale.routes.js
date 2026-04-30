@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getSales, createSale, updateSale, deleteSale } = require('../controllers/sale.controller');
+const { getSales, createSale, updateSale, deleteSale, getConsumptionReport } = require('../controllers/sale.controller');
 const { protect, authorize } = require('../middleware/auth.middleware');
 
 // router.use(protect);
+
+router.get('/consumption-report', getConsumptionReport);
 
 router.route('/')
   .get(getSales)

@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { getVendors, createVendor, updateVendor, deleteVendor, getVendorLedger } = require('../controllers/vendor.controller');
+const { getVendors, createVendor, updateVendor, deleteVendor, getVendorLedger, getBuyerLongPending, getBuyerExcessReturn } = require('../controllers/vendor.controller');
 const { protect, authorize } = require('../middleware/auth.middleware');
 
 // router.use(protect);
 
 router.get('/ledger', getVendorLedger);
+router.get('/long-pending', getBuyerLongPending);
+router.get('/excess-return', getBuyerExcessReturn);
 
 router.route('/')
   .get(getVendors)

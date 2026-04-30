@@ -30,21 +30,21 @@ exports.createSale = async (req, res) => {
     }
 
     const uniqueVegetableIds = new Set(items.map(item => {
-      const id = (item.vegetableId && typeof item.vegetableId === 'object') 
-        ? item.vegetableId._id 
+      const id = (item.vegetableId && typeof item.vegetableId === 'object')
+        ? item.vegetableId._id
         : item.vegetableId;
       return id?.toString();
     }).filter(Boolean));
     const totalRows = uniqueVegetableIds.size;
     let calculatedProductTotal = 0;
     let totalCoolie = 0;
-    
+
     const processedItems = await Promise.all(items.map(async (item) => {
       // Handle vegetableId being a string or an object
-      const vId = (item.vegetableId && typeof item.vegetableId === 'object') 
-        ? item.vegetableId._id 
+      const vId = (item.vegetableId && typeof item.vegetableId === 'object')
+        ? item.vegetableId._id
         : item.vegetableId;
-        
+
       const veg = await Vegetable.findById(vId);
       const coolieRate = veg ? (veg.commission || 0) : 0;
 
@@ -55,7 +55,7 @@ exports.createSale = async (req, res) => {
       // For calculation, use quantity if > 0, otherwise use count
       const calcQty = (quantity > 0) ? quantity : count;
       const productAmount = calcQty * rate;
-      
+
       // THE LOGIC: (Total Rows in bill) * (This item's bags) * (Coolie Rate)
       const coolieAmount = totalRows * count * coolieRate;
 
@@ -89,8 +89,8 @@ exports.createSale = async (req, res) => {
 
     // ====================== Vendor Balance Update ======================
     if (vendorId) {
-      await Vendor.findByIdAndUpdate(vendorId, { 
-        $inc: { debit: grandTotal } 
+      await Vendor.findByIdAndUpdate(vendorId, {
+        $inc: { debit: grandTotal }
       });
     }
 
@@ -126,8 +126,8 @@ exports.createSale = async (req, res) => {
             const actualRate = saleItem.rate;
             const farmerRate = actualRate * 0.90; // 10% commission
 
-            const shouldSplit = isCountBased 
-              ? (remainingCount < pCount) 
+            const shouldSplit = isCountBased
+              ? (remainingCount < pCount)
               : (remainingQty < pQty);
 
             if (shouldSplit) {
@@ -180,8 +180,8 @@ exports.createSale = async (req, res) => {
       }
 
       if (totalFarmerPayout > 0) {
-        await Farmer.findByIdAndUpdate(farmerId, { 
-          $inc: { credit: totalFarmerPayout } 
+        await Farmer.findByIdAndUpdate(farmerId, {
+          $inc: { credit: totalFarmerPayout }
         });
       }
     }
@@ -225,6 +225,33 @@ exports.deleteSale = async (req, res) => {
   try {
     await Sale.findByIdAndDelete(req.params.id);
     res.json({ message: 'Sale removed' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getConsumptionReport = async (req, res) => {
+  try {
+    const { vendorId, date } = req.query;
+    if (!date) return res.status(400).json({ message: 'Date is required' });
+
+    const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
+
+    const filter = { date: { $gte: start, $lte: end } };
+    if (vendorId) filter.vendorId = vendorId;
+
+    const sales = await Sale.find(filter)
+      .populate({
+        path: 'vendorId',
+        populate: { path: 'address addressTamil' }
+      })
+      .populate('items.vegetableId')
+      .sort({ createdAt: 1 });
+
+    res.json(sales);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
