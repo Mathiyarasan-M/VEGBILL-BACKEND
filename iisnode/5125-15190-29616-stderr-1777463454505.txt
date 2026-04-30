@@ -1,0 +1,13 @@
+(node:29616) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+CRITICAL PAYMENT ERROR: ReferenceError: mongoose is not defined
+    at exports.createPayment (C:\@\VEG-commission-Backend\controllers\payment.controller.js:42:5)
+    at Layer.handleRequest (C:\@\VEG-commission-Backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\@\VEG-commission-Backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\@\VEG-commission-Backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\@\VEG-commission-Backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\@\VEG-commission-Backend\node_modules\router\lib\layer.js:152:17)
+    at C:\@\VEG-commission-Backend\node_modules\router\index.js:295:15
+    at processParams (C:\@\VEG-commission-Backend\node_modules\router\index.js:582:12)
+    at next (C:\@\VEG-commission-Backend\node_modules\router\index.js:291:5)
+    at protect (C:\@\VEG-commission-Backend\middleware\auth.middleware.js:17:14)

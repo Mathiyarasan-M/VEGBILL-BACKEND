@@ -1,0 +1,8 @@
+◇ injected env (3) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+Server running on port \\.\pipe\1a14fd4e-256e-459b-95ef-d5593d3cf97d
+[0mGET / [32m200[0m 3.876 ms - 35[0m
+[0mGET / [32m200[0m 0.830 ms - 35[0m
+MongoDB Connected: localhost
+[0mGET / [32m200[0m 0.373 ms - 35[0m
+[0mGET /favicon.ico [33m404[0m 2.081 ms - 150[0m
+[0mGET /robots.txt [33m404[0m 0.768 ms - 149[0m

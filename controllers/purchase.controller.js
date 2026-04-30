@@ -49,7 +49,6 @@ exports.deletePurchase = async (req, res) => {
 exports.getPurchaseReport = async (req, res) => {
   try {
     const { startDate, endDate, farmerId } = req.query;
-    console.log('GET_PURCHASE_REPORT_REQUEST:', { startDate, endDate, farmerId });
     let query = {};
     
     if (startDate && endDate) {
@@ -68,7 +67,11 @@ exports.getPurchaseReport = async (req, res) => {
     }
     
     const purchases = await Purchase.find(query)
-      .populate('farmerId items.vegetableId')
+      .populate({
+        path: 'farmerId',
+        populate: { path: 'address' }
+      })
+      .populate('items.vegetableId')
       .sort({ date: 1, createdAt: 1 });
       
     res.json(purchases);

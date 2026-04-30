@@ -1,0 +1,6 @@
+◇ injected env (3) from .env // tip: ⌘ suppress logs { quiet: true }
+Server running on port \\.\pipe\43927006-4b57-47ff-b277-dc4b6f204c53
+MongoDB Connected: localhost
+[0mGET /api/vendors/outstanding?asOfDate=2026-04-29 [32m200[0m 700.792 ms - 278093[0m
+[0mGET /api/farmers/veg-detail?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 312.746 ms - -[0m
+[0mGET /api/farmers/veg-detail?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 31.893 ms - -[0m

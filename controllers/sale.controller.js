@@ -30,21 +30,21 @@ exports.createSale = async (req, res) => {
     }
 
     const uniqueVegetableIds = new Set(items.map(item => {
-      const id = (item.vegetableId && typeof item.vegetableId === 'object')
-        ? item.vegetableId._id
+      const id = (item.vegetableId && typeof item.vegetableId === 'object') 
+        ? item.vegetableId._id 
         : item.vegetableId;
       return id?.toString();
     }).filter(Boolean));
     const totalRows = uniqueVegetableIds.size;
     let calculatedProductTotal = 0;
     let totalCoolie = 0;
-
+    
     const processedItems = await Promise.all(items.map(async (item) => {
       // Handle vegetableId being a string or an object
-      const vId = (item.vegetableId && typeof item.vegetableId === 'object')
-        ? item.vegetableId._id
+      const vId = (item.vegetableId && typeof item.vegetableId === 'object') 
+        ? item.vegetableId._id 
         : item.vegetableId;
-
+        
       const veg = await Vegetable.findById(vId);
       const coolieRate = veg ? (veg.commission || 0) : 0;
 
@@ -55,7 +55,7 @@ exports.createSale = async (req, res) => {
       // For calculation, use quantity if > 0, otherwise use count
       const calcQty = (quantity > 0) ? quantity : count;
       const productAmount = calcQty * rate;
-
+      
       // THE LOGIC: (Total Rows in bill) * (This item's bags) * (Coolie Rate)
       const coolieAmount = totalRows * count * coolieRate;
 
@@ -89,8 +89,8 @@ exports.createSale = async (req, res) => {
 
     // ====================== Vendor Balance Update ======================
     if (vendorId) {
-      await Vendor.findByIdAndUpdate(vendorId, {
-        $inc: { debit: grandTotal }
+      await Vendor.findByIdAndUpdate(vendorId, { 
+        $inc: { debit: grandTotal } 
       });
     }
 
@@ -126,8 +126,8 @@ exports.createSale = async (req, res) => {
             const actualRate = saleItem.rate;
             const farmerRate = actualRate * 0.90; // 10% commission
 
-            const shouldSplit = isCountBased
-              ? (remainingCount < pCount)
+            const shouldSplit = isCountBased 
+              ? (remainingCount < pCount) 
               : (remainingQty < pQty);
 
             if (shouldSplit) {
@@ -180,8 +180,8 @@ exports.createSale = async (req, res) => {
       }
 
       if (totalFarmerPayout > 0) {
-        await Farmer.findByIdAndUpdate(farmerId, {
-          $inc: { credit: totalFarmerPayout }
+        await Farmer.findByIdAndUpdate(farmerId, { 
+          $inc: { credit: totalFarmerPayout } 
         });
       }
     }

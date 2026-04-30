@@ -1,0 +1,4 @@
+◇ injected env (3) from .env // tip: ⌘ enable debugging { debug: true }
+Server running on port \\.\pipe\0578d590-cde7-42da-9525-417950e55b81
+[0mGET / [32m200[0m 3.663 ms - 35[0m
+MongoDB Connected: localhost

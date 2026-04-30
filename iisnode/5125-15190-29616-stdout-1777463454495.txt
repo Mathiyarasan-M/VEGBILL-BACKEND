@@ -1,0 +1,32 @@
+◇ injected env (3) from .env // tip: ⌘ enable debugging { debug: true }
+Server running on port \\.\pipe\eed2c4f8-c67a-443a-a541-386a43724d03
+MongoDB Connected: localhost
+[0mGET /api/payments [36m304[0m 317.832 ms - -[0m
+[0mGET /api/farmers [36m304[0m 388.342 ms - -[0m
+[0mGET /api/counters/next/paymentOutSeq [32m200[0m 407.556 ms - 25[0m
+[0mGET /api/payments [36m304[0m 30.604 ms - -[0m
+[0mGET /api/farmers [36m304[0m 72.590 ms - -[0m
+[0mGET /api/counters/next/paymentOutSeq [36m304[0m 55.759 ms - -[0m
+[0mGET /api/purchases [36m304[0m 645.839 ms - -[0m
+[0mGET /api/sales [36m304[0m 727.000 ms - -[0m
+[0mGET /api/purchases [36m304[0m 26.721 ms - -[0m
+[0mGET /api/sales [36m304[0m 26.312 ms - -[0m
+POST /api/payments - Body: {
+  partyId: '69f057a7a00bfe364651850d',
+  partyType: 'Farmer',
+  amount: 100,
+  type: 'OUT',
+  paymentMethod: 'Cash',
+  date: '2026-04-29T11:51:08.300Z',
+  note: '',
+  isAdvance: true,
+  entryType: 'Advance'
+}
+[0mPOST /api/payments [31m500[0m 37.947 ms - 37[0m
+[0mGET /api/payments [36m304[0m 16.887 ms - -[0m
+[0mGET /api/sales [36m304[0m 32.111 ms - -[0m
+[0mGET /api/farmers [36m304[0m 67.944 ms - -[0m
+[0mGET /api/purchases [36m304[0m 281.282 ms - -[0m
+[0mGET /api/counters/next/paymentOutSeq [36m304[0m 17.723 ms - -[0m
+[0mGET /api/expenses/categories [36m304[0m 20.338 ms - -[0m
+[0mGET /api/expenses/categories [36m304[0m 4.911 ms - -[0m

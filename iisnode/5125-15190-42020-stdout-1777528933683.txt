@@ -1,0 +1,14 @@
+◇ injected env (3) from .env // tip: ⌘ override existing { override: true }
+Server running on port \\.\pipe\b5db6f91-9ac5-4107-9a3f-524c35f3e636
+MongoDB Connected: localhost
+[0mGET /api/farmers/veg-abstract?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 348.306 ms - -[0m
+[0mGET /api/farmers/veg-abstract?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 7.787 ms - -[0m
+[0mGET /api/farmers/veg-detail?startDate=2026-03-31&endDate=2026-04-30 [32m200[0m 320.835 ms - 2601[0m
+[0mGET /api/farmers/veg-detail?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 27.132 ms - -[0m
+[0mGET /api/farmers/veg-detail?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 40.754 ms - -[0m
+[0mGET /api/farmers/veg-detail?startDate=2026-03-31&endDate=2026-04-30 [36m304[0m 20.401 ms - -[0m
+[0mGET /api/villages?limit=1000&isActive=true [36m304[0m 121.308 ms - -[0m
+[0mGET /api/villages?limit=1000&isActive=true [36m304[0m 130.843 ms - -[0m
+[0mGET /api/villages?limit=1000&isActive=true [36m304[0m 95.342 ms - -[0m
+[0mGET /api/villages?limit=1000&isActive=true [36m304[0m 97.539 ms - -[0m
+[0mGET /api/vendors/outstanding?asOfDate=2026-04-29 [33m404[0m 4.918 ms - 162[0m
