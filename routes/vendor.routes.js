@@ -6,6 +6,7 @@ const { protect, authorize } = require('../middleware/auth.middleware');
 // router.use(protect);
 
 router.get('/ledger', getVendorLedger);
+router.get('/outstanding', require('../controllers/vendor.controller').getOutstanding);
 
 router.route('/')
   .get(getVendors)

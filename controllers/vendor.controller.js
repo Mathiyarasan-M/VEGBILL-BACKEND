@@ -133,3 +133,33 @@ exports.getVendorLedger = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getOutstanding = async (req, res) => {
+  try {
+    const { asOfDate } = req.query;
+    const end = new Date(asOfDate || new Date());
+    end.setHours(23, 59, 59, 999);
+
+    const vendors = await Vendor.find();
+    const Sale = require('../models/Sale.model');
+    const Payment = require('../models/Payment.model');
+
+    const sales = await Sale.find({ date: { $lte: end } }).select('vendorId totalAmount');
+    const payments = await Payment.find({ partyType: 'Vendor', type: 'IN', date: { $lte: end } }).select('partyId amount');
+
+    const outstandingList = vendors.map(v => {
+      const vSales = sales.filter(s => s.vendorId && s.vendorId.toString() === v._id.toString());
+      const vPayments = payments.filter(p => p.partyId && p.partyId.toString() === v._id.toString());
+      
+      const totalSales = vSales.reduce((a, s) => a + (s.totalAmount || 0), 0);
+      const totalPayments = vPayments.reduce((a, p) => a + (p.amount || 0), 0);
+      
+      const balance = (v.oldBalance || 0) + totalSales - totalPayments;
+      return { vendor: v, balance };
+    });
+
+    res.json(outstandingList);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
