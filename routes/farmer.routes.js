@@ -8,6 +8,7 @@ const { protect, authorize } = require('../middleware/auth.middleware');
 router.get('/ledger', getFarmerLedger);
 router.get('/veg-abstract', getFarmerVegAbstract);
 router.get('/veg-detail', getFarmerVegDetail);
+router.get('/seller-veg-payment-details', require('../controllers/farmer.controller').getSellerVegPaymentDetails);
 
 router.route('/')
   .get(getFarmers)

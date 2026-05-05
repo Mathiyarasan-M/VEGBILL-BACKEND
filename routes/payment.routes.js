@@ -6,6 +6,7 @@ const { protect, authorize } = require('../middleware/auth.middleware');
 router.use(protect);
 
 router.get('/return-commission', getReturnCommissionReport);
+router.get('/cash-bank-abstract', require('../controllers/payment.controller').getCashBankAbstract);
 
 router.route('/')
   .get(getPayments)

@@ -277,3 +277,95 @@ exports.getReturnCommissionReport = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.getCashBankAbstract = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    if (!startDate || !endDate) return res.status(400).json({ message: 'Date range is required' });
+
+    const start = new Date(startDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const Payment = require('../models/Payment.model');
+    const Expense = require('../models/Expense.model');
+    const Investment = require('../models/Investment.model');
+
+    // 1. Calculate Opening Balances
+    const calculateOpening = async (methodType) => {
+      // methodType: 'Cash' or 'Bank/UPI'
+      const isBank = methodType !== 'Cash';
+      const methods = isBank ? ['Bank', 'UPI'] : ['Cash'];
+
+      const pIn = await Payment.find({ type: 'IN', paymentMethod: { $in: methods }, date: { $lt: start } });
+      const pOut = await Payment.find({ type: 'OUT', paymentMethod: { $in: methods }, date: { $lt: start } });
+      const exp = await Expense.find({ paymentMethod: { $in: methods }, date: { $lt: start } });
+      
+      let invIn = 0;
+      let invOut = 0;
+      if (!isBank) {
+        const inv = await Investment.find({ date: { $lt: start } });
+        invIn = inv.filter(i => i.mode === 'Credit').reduce((a, b) => a + b.amount, 0);
+        invOut = inv.filter(i => i.mode === 'Return').reduce((a, b) => a + b.amount, 0);
+      }
+
+      const totalIn = pIn.reduce((a, b) => a + b.amount, 0) + invIn;
+      const totalOut = pOut.reduce((a, b) => a + b.amount, 0) + exp.reduce((a, b) => a + b.amount, 0) + invOut;
+      
+      return totalIn - totalOut;
+    };
+
+    const cashOpening = await calculateOpening('Cash');
+    const bankOpening = await calculateOpening('Bank');
+
+    // 2. Daily Data
+    const days = [];
+    let curr = new Date(start);
+    while (curr <= end) {
+      days.push(new Date(curr));
+      curr.setDate(curr.getDate() + 1);
+    }
+
+    const dailyData = await Promise.all(days.map(async (date) => {
+      const dStart = new Date(date);
+      dStart.setHours(0, 0, 0, 0);
+      const dEnd = new Date(date);
+      dEnd.setHours(23, 59, 59, 999);
+
+      const query = { date: { $gte: dStart, $lte: dEnd } };
+
+      const pIn = await Payment.find({ ...query, type: 'IN' });
+      const pOut = await Payment.find({ ...query, type: 'OUT' });
+      const exp = await Expense.find(query);
+      const inv = await Investment.find(query);
+
+      const filterMethod = (arr, methods) => arr.filter(i => methods.includes(i.paymentMethod || i.mode));
+
+      const cashIn = pIn.filter(p => p.paymentMethod === 'Cash').reduce((a, b) => a + b.amount, 0) + 
+                     inv.filter(i => i.mode === 'Credit').reduce((a, b) => a + b.amount, 0);
+      const cashOut = pOut.filter(p => p.paymentMethod === 'Cash').reduce((a, b) => a + b.amount, 0) + 
+                      exp.filter(e => e.paymentMethod === 'Cash').reduce((a, b) => a + b.amount, 0) + 
+                      inv.filter(i => i.mode === 'Return').reduce((a, b) => a + b.amount, 0);
+
+      const bankIn = pIn.filter(p => ['Bank', 'UPI'].includes(p.paymentMethod)).reduce((a, b) => a + b.amount, 0);
+      const bankOut = pOut.filter(p => ['Bank', 'UPI'].includes(p.paymentMethod)).reduce((a, b) => a + b.amount, 0) + 
+                      exp.filter(e => ['Bank', 'UPI'].includes(e.paymentMethod)).reduce((a, b) => a + b.amount, 0);
+
+      return {
+        date: dStart.toISOString().split('T')[0],
+        cashIn,
+        cashOut,
+        bankIn,
+        bankOut
+      };
+    }));
+
+    res.json({
+      cashOpening,
+      bankOpening,
+      dailyData
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

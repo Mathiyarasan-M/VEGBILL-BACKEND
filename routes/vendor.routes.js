@@ -9,6 +9,8 @@ router.get('/ledger', getVendorLedger);
 router.get('/outstanding', require('../controllers/vendor.controller').getOutstanding);
 router.get('/long-pending', getBuyerLongPending);
 router.get('/excess-return', getBuyerExcessReturn);
+router.get('/consumption-report', require('../controllers/vendor.controller').getBuyerConsumptionReport);
+router.get('/balance-abstract', require('../controllers/vendor.controller').getBuyerBalanceAbstract);
 
 router.route('/')
   .get(getVendors)

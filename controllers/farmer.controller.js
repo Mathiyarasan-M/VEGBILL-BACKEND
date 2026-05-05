@@ -268,3 +268,112 @@ exports.getFarmerVegDetail = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.getSellerVegPaymentDetails = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    if (!startDate || !endDate) return res.status(400).json({ message: 'Date range is required' });
+
+    const start = new Date(startDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const Farmer = require('../models/Farmer.model');
+    const Purchase = require('../models/Purchase.model');
+    const Sale = require('../models/Sale.model');
+    const Payment = require('../models/Payment.model');
+
+    const farmers = await Farmer.find({}).populate('address addressTamil');
+
+    const result = [];
+
+    for (const farmer of farmers) {
+      // 1. Opening Balance
+      const purchasesBefore = await Purchase.find({ farmerId: farmer._id, date: { $lt: start } });
+      const paymentsBefore = await Payment.find({ 
+        partyId: farmer._id, 
+        partyType: 'Farmer', 
+        type: 'OUT', 
+        date: { $lt: start } 
+      });
+      const returnsBefore = await Payment.find({
+        partyId: farmer._id,
+        partyType: 'Farmer',
+        type: 'IN',
+        date: { $lt: start }
+      });
+
+      const totalPurchasesBefore = purchasesBefore.reduce((a, s) => a + (s.totalAmount || 0), 0);
+      const totalPaymentsBefore = paymentsBefore.reduce((a, p) => a + (p.amount || 0), 0);
+      const totalReturnsBefore = returnsBefore.reduce((a, p) => a + (p.amount || 0), 0);
+      
+      const openingBalance = (farmer.oldBalance || 0) + totalPurchasesBefore - totalPaymentsBefore - totalReturnsBefore;
+
+      // 2. Range Data
+      const purchasesInRange = await Purchase.find({ farmerId: farmer._id, date: { $gte: start, $lte: end } });
+      const paymentsInRange = await Payment.find({ 
+        partyId: farmer._id, 
+        partyType: 'Farmer', 
+        type: 'OUT', 
+        date: { $gte: start, $lte: end } 
+      });
+      const returnsInRange = await Payment.find({
+        partyId: farmer._id,
+        partyType: 'Farmer',
+        type: 'IN',
+        date: { $gte: start, $lte: end }
+      });
+      
+      // Act Sales (Gross) and Comm (deduction)
+      let actSales = 0;
+      let vegComm = 0;
+      purchasesInRange.forEach(p => {
+        p.items.forEach(item => {
+          const gross = item.actualAmount || (item.rate * item.payableWeight / 0.9); // Fallback if actualAmount not set
+          const comm = gross - (item.totalAmount || 0);
+          actSales += gross;
+          vegComm += comm;
+        });
+      });
+
+      // Bag Commission (itemFee from Sale)
+      const salesInRange = await Sale.find({ farmerId: farmer._id, date: { $gte: start, $lte: end } });
+      const bagComm = salesInRange.reduce((a, s) => a + (s.items.reduce((b, it) => b + (it.itemFee || 0), 0)), 0);
+
+      const cashPaid = paymentsInRange.filter(p => p.paymentMethod === 'Cash').reduce((a, p) => a + p.amount, 0);
+      const bankPaid = paymentsInRange.filter(p => p.paymentMethod !== 'Cash').reduce((a, p) => a + p.amount, 0);
+      const amtRecd = returnsInRange.reduce((a, p) => a + p.amount, 0);
+      
+      // Extra Income (Return Commission given to farmer?)
+      const extraIncome = 0; // Placeholder, or logic to find other bonuses
+
+      const totalPaid = cashPaid + bankPaid;
+      
+      const closingBalance = openingBalance + (actSales - vegComm) + extraIncome - totalPaid - amtRecd;
+
+      if (openingBalance === 0 && actSales === 0 && totalPaid === 0 && amtRecd === 0) continue;
+
+      result.push({
+        farmerId: farmer._id,
+        farmerName: farmer.name,
+        farmerNameTamil: farmer.nameTamil,
+        villageName: farmer.address?.nameEn || '',
+        villageNameTamil: farmer.addressTamil?.nameTa || '',
+        openingBalance,
+        actSales,
+        vegComm,
+        bagComm,
+        amtRecd,
+        cashPaid,
+        bankPaid,
+        totalPaid,
+        extraIncome,
+        closingBalance
+      });
+    }
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

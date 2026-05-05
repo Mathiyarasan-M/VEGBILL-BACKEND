@@ -296,3 +296,265 @@ exports.getOutstanding = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getBuyerConsumptionReport = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    const start = new Date(startDate || '2000-01-01');
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate || new Date());
+    end.setHours(23, 59, 59, 999);
+
+    const Vendor = require('../models/Vendor.model');
+    const Sale = require('../models/Sale.model');
+    const Payment = require('../models/Payment.model');
+
+    const vendors = await Vendor.find({}).populate('address addressTamil').lean();
+    const result = [];
+
+    for (const vendor of vendors) {
+      const vendorId = vendor._id;
+
+      // Before Range (for Opening)
+      const salesBefore = await Sale.find({ vendorId, date: { $lt: start } }).lean();
+      const paymentsBefore = await Payment.find({ 
+        partyId: vendorId, partyType: 'Vendor', type: 'IN', date: { $lt: start } 
+      }).lean();
+
+      const totalSalesBefore = salesBefore.reduce((a, s) => a + (s.totalAmount || 0), 0);
+      const totalPaymentsBefore = paymentsBefore.reduce((a, p) => a + (p.amount || 0), 0);
+      
+      const openingDebt = (vendor.oldBalance || 0) + totalSalesBefore - totalPaymentsBefore;
+      const opening = -openingDebt;
+
+      // In Range
+      const salesInRange = await Sale.find({ vendorId, date: { $gte: start, $lte: end } }).lean();
+      const paymentsInRange = await Payment.find({ 
+        partyId: vendorId, partyType: 'Vendor', type: 'IN', date: { $gte: start, $lte: end } 
+      }).lean();
+
+      let actSales = 0;
+      let bagComm = 0;
+      
+      for (const s of salesInRange) {
+        let billBagComm = 0;
+        if (s.items && Array.isArray(s.items)) {
+           billBagComm = s.items.reduce((a, item) => a + (item.itemFee || 0), 0);
+        }
+        bagComm += billBagComm;
+        actSales += ((s.totalAmount || 0) - billBagComm);
+      }
+
+      let cashRecd = 0;
+      let bankRecd = 0;
+      let returnComm = 0;
+
+      for (const p of paymentsInRange) {
+        if (p.entryType === 'Return Commission') {
+          returnComm += (p.amount || 0);
+        } else {
+          if (p.paymentMethod === 'Cash') {
+            cashRecd += (p.amount || 0);
+          } else {
+            bankRecd += (p.amount || 0);
+          }
+        }
+      }
+
+      const totalRecd = cashRecd + bankRecd;
+      
+      const closingDebt = openingDebt + actSales + bagComm - totalRecd - returnComm;
+      const closing = -closingDebt;
+
+      if (opening === 0 && actSales === 0 && bagComm === 0 && totalRecd === 0 && returnComm === 0 && closing === 0) {
+        continue;
+      }
+
+      result.push({
+        vendor,
+        opening,
+        actSales,
+        bagComm,
+        cashRecd,
+        bankRecd,
+        totalRecd,
+        returnComm,
+        closing
+      });
+    }
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getBuyerBalanceAbstract = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    const start = new Date(startDate || new Date(new Date().getFullYear(), 3, 1)); // Default Apr 1
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate || new Date());
+    end.setHours(23, 59, 59, 999);
+
+    const Vendor = require('../models/Vendor.model');
+    const Sale = require('../models/Sale.model');
+    const Payment = require('../models/Payment.model');
+    const Purchase = require('../models/Purchase.model');
+    const Expense = require('../models/Expense.model');
+
+    const vendors = await Vendor.find({}).lean();
+    
+    // Identify vendor types
+    const isOwn = (v) => /own consumption|சொந்த/i.test(v.name || '') || /own consumption|சொந்த/i.test(v.nameTamil || '');
+    const isWastage = (v) => /wastage|கழிவு/i.test(v.name || '') || /wastage|கழிவு/i.test(v.nameTamil || '');
+    const isSeller = (v) => /seller|விற்பனை/i.test(v.name || '') || /seller|விற்பனை/i.test(v.nameTamil || '');
+    const isBuyer = (v) => !isOwn(v) && !isWastage(v) && !isSeller(v);
+
+    const buyerVendorIds = vendors.filter(isBuyer).map(v => v._id.toString());
+    const ownVendorIds = vendors.filter(isOwn).map(v => v._id.toString());
+    const wastageVendorIds = vendors.filter(isWastage).map(v => v._id.toString());
+    const sellerVendorIds = vendors.filter(isSeller).map(v => v._id.toString());
+
+    // Generate month keys
+    const months = [];
+    let curr = new Date(start);
+    curr.setDate(1);
+    while (curr <= end) {
+      const y = curr.getFullYear();
+      const m = curr.getMonth() + 1;
+      const key = `${y}-${m.toString().padStart(2, '0')}`;
+      months.push(key);
+      curr.setMonth(curr.getMonth() + 1);
+    }
+
+    const report = {
+      months: months.map(m => {
+        const [y, mo] = m.split('-');
+        const date = new Date(parseInt(y), parseInt(mo) - 1, 1);
+        const en = date.toLocaleString('en-US', { month: 'short' });
+        const ta = ["ஜனவரி", "பிப்ரவரி", "மார்ச்", "ஏப்ரல்", "மே", "ஜூன்", "ஜூலை", "ஆகஸ்ட்", "செப்டம்பர்", "அக்டோபர்", "நவம்பர்", "டிசம்பர்"][parseInt(mo) - 1];
+        return { key: m, labelEn: `${en}'${y}`, labelTa: `${ta}'${y}` };
+      }),
+      data: {}
+    };
+
+    // Calculate Overall Opening Balance for Buyers
+    let overallOpeningDebt = 0;
+    for (const v of vendors.filter(isBuyer)) {
+      overallOpeningDebt += (v.oldBalance || 0);
+    }
+    
+    const salesBefore = await Sale.find({ vendorId: { $in: buyerVendorIds }, date: { $lt: start } }).lean();
+    const paymentsBefore = await Payment.find({ partyId: { $in: buyerVendorIds }, partyType: 'Vendor', type: 'IN', date: { $lt: start } }).lean();
+    
+    let totalSalesBefore = 0;
+    for (const s of salesBefore) {
+      totalSalesBefore += (s.totalAmount || 0);
+    }
+    
+    const totalPaymentsBefore = paymentsBefore.reduce((a, p) => a + (p.amount || 0), 0);
+    overallOpeningDebt = overallOpeningDebt + totalSalesBefore - totalPaymentsBefore;
+
+    let currentDebt = overallOpeningDebt;
+
+    // Grouping data by month
+    for (const monthKey of months) {
+      const [y, mo] = monthKey.split('-');
+      const mStart = new Date(parseInt(y), parseInt(mo) - 1, 1);
+      const mEnd = new Date(parseInt(y), parseInt(mo), 0, 23, 59, 59, 999);
+      
+      const realStart = mStart < start ? start : mStart;
+      const realEnd = mEnd > end ? end : mEnd;
+
+      const sales = await Sale.find({ date: { $gte: realStart, $lte: realEnd } }).lean();
+      const payments = await Payment.find({ partyType: 'Vendor', type: 'IN', date: { $gte: realStart, $lte: realEnd } }).lean();
+
+      let buyerSales = 0;
+      let ownConsumption = 0;
+      let wastageSales = 0;
+      let sellerSales = 0;
+      let cashRecd = 0;
+      let bankRecd = 0;
+      let returnComm = 0;
+      let bagCommMonth = 0;
+
+      for (const s of sales) {
+        const vid = s.vendorId.toString();
+        const bComm = s.items ? s.items.reduce((a, i) => a + (i.itemFee || 0), 0) : 0;
+        const total = s.totalAmount || 0;
+        
+        if (buyerVendorIds.includes(vid)) {
+          buyerSales += total;
+          bagCommMonth += bComm;
+        } else if (ownVendorIds.includes(vid)) {
+          ownConsumption += total;
+        } else if (wastageVendorIds.includes(vid)) {
+          wastageSales += total;
+        } else if (sellerVendorIds.includes(vid)) {
+          sellerSales += total;
+        } else {
+          buyerSales += total;
+          bagCommMonth += bComm;
+        }
+      }
+
+      for (const p of payments) {
+        const vid = p.partyId.toString();
+        if (buyerVendorIds.includes(vid)) {
+          if (p.entryType === 'Return Commission') returnComm += (p.amount || 0);
+          else if (p.paymentMethod === 'Cash') cashRecd += (p.amount || 0);
+          else bankRecd += (p.amount || 0);
+        }
+      }
+
+      const opening = currentDebt;
+      currentDebt = currentDebt + buyerSales - cashRecd - bankRecd - returnComm;
+      const closing = currentDebt;
+
+      const purchases = await Purchase.find({ date: { $gte: realStart, $lte: realEnd } }).lean();
+      let vegCommIncome = 0;
+      for (const pur of purchases) {
+        vegCommIncome += (pur.totalCommission || 0);
+        const pCoolie = pur.items ? pur.items.reduce((a, i) => a + (i.coolieAmount || 0), 0) : 0;
+        bagCommMonth += pCoolie;
+      }
+
+      const expenses = await Expense.find({ date: { $gte: realStart, $lte: realEnd } }).populate('category').lean();
+      let shopSalary = 0;
+      let otherExpense = 0;
+      let purchaseRelated = 0;
+
+      for (const ex of expenses) {
+        const cName = ex.category ? (ex.category.name || '').toLowerCase() : '';
+        const amt = ex.amount || 0;
+        if (cName.includes('salary') || cName.includes('சம்பளம்')) shopSalary += amt;
+        else if (cName.includes('purchase') || cName.includes('கொள்முதல்')) purchaseRelated += amt;
+        else otherExpense += amt;
+      }
+
+      report.data[monthKey] = {
+        openingBalance: opening,
+        buyerSales,
+        ownConsumption,
+        wastageSales,
+        sellerSales,
+        cashRecd,
+        bankRecd,
+        returnComm,
+        closingBalance: closing,
+        vegCommIncome,
+        returnCommExpense: returnComm,
+        bagComm: bagCommMonth,
+        otherIncome: 0,
+        shopSalary,
+        otherExpense,
+        purchaseRelated
+      };
+    }
+
+    res.json(report);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
