@@ -64,6 +64,7 @@ app.use('/api/counters', require('./routes/counter.routes'));
 app.use('/api/investments', require('./routes/investment.routes'));
 app.use('/api/expenses', require('./routes/expense.routes'));
 app.use('/api/villages', require('./routes/village.routes'));
+app.use('/api/daily-transactions', require('./routes/daily-transaction.routes'));
 
 // Basic route
 app.get('/', (req, res) => {

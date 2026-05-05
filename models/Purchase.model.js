@@ -28,6 +28,7 @@ const PurchaseSchema = new mongoose.Schema({
   paymentMethod: { type: String, enum: ['Cash', 'Credit'], default: 'Credit' },
   paymentStatus: { type: String, enum: ['Paid', 'Pending'], default: 'Pending' },
   advanceAtBill: { type: Number, default: 0 },
+  advanceReason: { type: String },
   oldBalanceAtBill: { type: Number, default: 0 },
   sourceSaleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Sale' }
 }, { timestamps: true });
