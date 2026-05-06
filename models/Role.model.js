@@ -7,19 +7,24 @@ const RoleSchema = new mongoose.Schema({
     unique: true,
   },
   description: String,
-  permissions: {
-    menus: [
-      {
-        name: String,
-        path: String,
-        access: {
-          type: Boolean,
-          default: false
-        }
-      }
-    ],
-    features: [String] // e.g., ['delete_farmer', 'edit_purchase']
-  }
+  permissions: [{
+    menuId: {
+      type: String,
+      required: true
+    },
+    menuName: String,
+    access: {
+      type: Boolean,
+      default: false
+    },
+    actions: {
+      view: { type: Boolean, default: false },
+      add: { type: Boolean, default: false },
+      edit: { type: Boolean, default: false },
+      delete: { type: Boolean, default: false },
+      pdf: { type: Boolean, default: false }
+    }
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Role', RoleSchema);

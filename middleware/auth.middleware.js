@@ -28,8 +28,20 @@ const protect = async (req, res, next) => {
 
 const authorize = (...roles) => {
   return (req, res, next) => {
-    if (!req.user || !req.user.role) {
+    if (!req.user) {
       return res.status(401).json({ message: 'Not authorized' });
+    }
+
+    const isSuperAdmin = 
+      (req.user.role && req.user.role.name && req.user.role.name.toLowerCase().replace(/\s/g, '') === 'superadmin') ||
+      (req.user.name && req.user.name.toLowerCase().replace(/\s/g, '') === 'superadmin');
+
+    if (isSuperAdmin) {
+      return next();
+    }
+
+    if (!req.user.role) {
+      return res.status(401).json({ message: 'Not authorized (No Role Assigned)' });
     }
 
     if (roles.length > 0 && !roles.includes(req.user.role.name)) {

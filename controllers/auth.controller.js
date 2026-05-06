@@ -23,12 +23,21 @@ exports.login = async (req, res) => {
       console.log('Password matched');
       const token = generateToken(user._id);
       console.log('Token generated');
+      let userRole = user.role;
       
+      // If role is null but it is the super admin, inject a dummy role object
+      if (!userRole && (user.name.toLowerCase().replace(/\s/g, '') === 'superadmin' || user.email === 'admin@gmail.com')) {
+        userRole = {
+          name: 'Super Admin',
+          permissions: []
+        };
+      }
+
       res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: userRole,
         token: token,
       });
     } else {
@@ -48,7 +57,14 @@ exports.getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate('role');
     if (user) {
-      res.json(user);
+      let userRole = user.role;
+      if (!userRole && (user.name.toLowerCase().replace(/\s/g, '') === 'superadmin' || user.email === 'admin@gmail.com')) {
+        userRole = { name: 'Super Admin', permissions: [] };
+      }
+      res.json({
+        ...user._doc,
+        role: userRole
+      });
     } else {
       res.status(404).json({ message: 'User not found' });
     }

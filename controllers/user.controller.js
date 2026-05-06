@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
 // @route   POST /api/users
 // @access  Private/Admin
 exports.createUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, mobile } = req.body;
 
   try {
     const userExists = await User.findOne({ email });
@@ -28,14 +28,16 @@ exports.createUser = async (req, res) => {
       name,
       email,
       password,
-      role
+      role,
+      mobile
     });
 
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role
+      role: user.role,
+      mobile: user.mobile
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -55,6 +57,7 @@ exports.updateUser = async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.role = req.body.role || user.role;
+    user.mobile = req.body.mobile !== undefined ? req.body.mobile : user.mobile;
     user.isActive = req.body.isActive !== undefined ? req.body.isActive : user.isActive;
 
     if (req.body.password) {
@@ -67,6 +70,7 @@ exports.updateUser = async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       role: updatedUser.role,
+      mobile: updatedUser.mobile,
       isActive: updatedUser.isActive
     });
   } catch (error) {
